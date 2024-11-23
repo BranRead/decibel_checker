@@ -9,6 +9,15 @@
     const decibelText = document.getElementById('decibels');
     const startButton = document.getElementById('start');
     const stopButton = document.getElementById('stop');
+    const tooLoudSound = new Audio('./assets/audio/evil_laugh.wav');
+    const startSound = new Audio('./assets/audio/confirm.wav');
+    const stopSound = new Audio('./assets/audio/pause.wav');
+    const clickSound = new Audio('./assets/audio/click.wav');
+    let threshold = 60;
+    let thresholdExceeds = 0;
+    const thresholdLabel = document.getElementById("threshold");
+    const thresholdRange = document.getElementById("thresholdRange");
+    thresholdLabel.innerText = threshold;
     // Initialize
     try {
       const audioStream = await navigator.mediaDevices.getUserMedia({
@@ -34,8 +43,11 @@
         // Value range: 127 = analyser.maxDecibels - analyser.minDecibels;
         volumeVisualizer.style.setProperty('--volume', (averageVolume * 100 / 127) + '%');
         decibelText.innerText = Math.round(averageVolume * 100 / 127);
-        if(Math.round(averageVolume * 100 / 127) > 60){
+        if(Math.round(averageVolume * 100 / 127) > threshold){
             document.body.style.backgroundColor = "red";
+            thresholdExceeds++;
+            document.getElementById("thresholdExcess").innerText = thresholdExceeds;
+            tooLoudSound.play();
         } else {
             document.body.style.backgroundColor = "white";
         }
@@ -56,13 +68,34 @@
         volumeVisualizer.style.setProperty('--volume', volume + '%');
       };
     }
+
+    document.getElementById("downThreshold").addEventListener('click', () => {
+      clickSound.currentTime = 0;
+      clickSound.play();
+      threshold--;
+      thresholdLabel.innerText = threshold;
+      thresholdRange.value = threshold;
+    })
+    document.getElementById("upThreshold").addEventListener('click', () => {
+      clickSound.currentTime = 0;
+      clickSound.play();
+      threshold++;
+      thresholdLabel.innerText = threshold;
+      thresholdRange.value = threshold;
+    })
+    thresholdRange.addEventListener('change', () => {
+      threshold = thresholdRange.value;
+      thresholdLabel.innerText = threshold;
+    })
     // Use
     startButton.addEventListener('click', () => {
+      startSound.play();
       // Updating every 100ms (should be same as CSS transition speed)
       if(volumeCallback !== null && volumeInterval === null)
         volumeInterval = setInterval(volumeCallback, 100);
     });
     stopButton.addEventListener('click', () => {
+      stopSound.play();
       if(volumeInterval !== null) {
         clearInterval(volumeInterval);
         volumeInterval = null;
