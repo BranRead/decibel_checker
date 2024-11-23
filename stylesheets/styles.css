@@ -1,19 +1,19 @@
-div {
+#visualizer {
   --volume: 0%;
   position: relative;
-  width: 200px;
-  height: 20px;
-  margin: 50px;
+  width: 75%;
+  height: 10%;
   background-color: #DDD;
+  border: 1px solid black;
+  border-radius: 30px;
 }
 
-h1 {
+#too-loud {
     font-size: 100px;
-    margin-left: 1200px;
     color: white;
 }
 
-div::before {
+#visualizer::before {
    content: '';
    position: absolute;
    top: 0;
@@ -21,9 +21,10 @@ div::before {
    left: 0;
    width: var(--volume);
    background-color: green;
+   border-radius: 1000px;
    transition: width 100ms linear;
 }
 
-button {
-  margin-left: 50px;
+.user-panel {
+    background-color: antiquewhite;
 }

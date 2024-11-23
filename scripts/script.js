@@ -1,63 +1,6 @@
 
 // https://stackoverflow.com/questions/33322681/checking-microphone-volume-in-javascript
 // The above site is what I used for the basic checking microphone level
-// function VolumeMeter(context){
-//     this.context = context;
-//     this.volume = 0.0;
-//     this.script = context.createScriptProcessor(2048, 1, 1);
-
-//     const that = this;
-//     this.script.onaudioprocess = function(event) {
-//         const input = event.inputBuffer.getChannelData(0);
-//         var sum = 0.0;
-//         for(var i = 0; i < input.length; ++i) {
-//             sum += input[i] * input[i];
-//         }
-
-//     that.volume = Math.sqrt(sum / input.length);
-//     }
-// }
-
-// navigator.mediaDevices.getUserMedia({"audio": true})
-// .then((stream) => {
-//     let ctx = new AudioContext();
-//     const volumeMeter = new VolumeMeter(ctx);
-
-//     console.log(volumeMeter.volume);
-    
-    
-//     // console.log(stream.audio)
-// })
-
-// navigator.mediaDevices.getUserMedia({
-//     audio: true,
-//     video: true
-//   })
-//     .then(function(stream) {
-//       const audioContext = new AudioContext();
-//       const analyser = audioContext.createAnalyser();
-//       const microphone = audioContext.createMediaStreamSource(stream);
-//       const scriptProcessor = audioContext.createScriptProcessor(2048, 1, 1);
-  
-//       analyser.smoothingTimeConstant = 0.8;
-//       analyser.fftSize = 1024;
-  
-//       microphone.connect(analyser);
-//       analyser.connect(scriptProcessor);
-//       scriptProcessor.connect(audioContext.destination);
-//       scriptProcessor.onaudioprocess = function() {
-//         const array = new Uint8Array(analyser.frequencyBinCount);
-//         analyser.getByteFrequencyData(array);
-//         const arraySum = array.reduce((a, value) => a + value, 0);
-//         const average = arraySum / array.length;
-//         document.getElementById("decibels").innerText = (Math.round(average));
-//         // colorPids(average);
-//       };
-//     })
-//     .catch(function(err) {
-//       /* handle the error */
-//       console.error(err);
-//     });
 
 (async () => {
     let volumeCallback = null;
@@ -125,4 +68,4 @@
         volumeInterval = null;
       }
     });
-  });
+  })();
