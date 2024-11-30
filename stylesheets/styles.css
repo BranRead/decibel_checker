@@ -1,3 +1,8 @@
+body {
+  background-image: url(../assets/img/background.jpg);
+  background-color: #afc5f7;
+}
+
 #visualizer {
   --volume: 0%;
   position: relative;
@@ -24,13 +29,15 @@
    bottom: 0;
    left: 0;
    width: var(--volume);
-   background-color: #bb0a21;
+   background-color: #0a68bb;
+   /* background-color: #bb0a21; */
    border-radius: 1000px;
    transition: width 100ms linear;
 }
 
 .user-panel {
-    background-color: #6ac5f3;
+    background-color: rgba(106, 197, 243, 0.8);
+    t
 }
 
 .bordered {
